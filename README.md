@@ -18,6 +18,7 @@
   //{PLAYERNAME} == Player Who Joined
   //{STEAMID} = STEAM_0:1:122910632
   //{STEAMID64} = 76561198206086993
+  //{IP} = 127.0.0.0
   //Colors Available = "{default} {white} {darkred} {green} {lightyellow}" "{lightblue} {olive} {lime} {red} {lightpurple}"
                       //"{purple} {grey} {yellow} {gold} {silver}" "{blue} {darkblue} {bluegrey} {magenta} {lightred}" "{orange}"
 
@@ -40,7 +41,12 @@
   // Date and Time Formate
   "LogFileDateFormat": "MM-dd-yyyy",
   "LogInsideFileTimeFormat": "HH:mm:ss",
-  // Connect or Disconnect Message Inside Log
+
+  // you can use these in Connect or Disconnect Message
+  //{PLAYERNAME} == Player Who Joined
+  //{STEAMID} = STEAM_0:1:122910632
+  //{STEAMID64} = 76561198206086993
+  //{IP} = 127.0.0.0
   "ConnectPlayersLog": "{PLAYERNAME} Connected SteamdID:{STEAMID}",
   "DisconnectPlayersLog": "{PLAYERNAME} Disconnected SteamdID:{STEAMID}",
 
@@ -51,6 +57,13 @@
 
 ## .:[ Change Log ]:.
 ```
+(1.0.1)
+-Added {IP} To
+"ConnectPlayers"
+"DisconnectPlayers"
+"ConnectPlayersLog"
+"DisconnectPlayersLog"
+
 (1.0.0)
 -Initial Release
 ```
