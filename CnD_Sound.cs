@@ -74,12 +74,18 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
 
         
         var replacer = ReplaceMessages(emp + Config.ConnectPlayers, JoinPlayer, steamId2, steamId64.ToString(), ipAddress.ToString());
-        Server.PrintToChatAll(replacer);
+        if (!string.IsNullOrEmpty(Config.ConnectPlayers))
+        {
+            Server.PrintToChatAll(replacer);
+        }
 
         if(Config.CnDModeLogs)
         {
             var replacerlog = ReplaceMessages(Config.ConnectPlayersLog, JoinPlayer, steamId2, steamId64.ToString(), ipAddress.ToString());
-            File.AppendAllLines(Tpath, new[]{ Time + emp + replacerlog});
+            if (!string.IsNullOrEmpty(Config.ConnectPlayersLog))
+            {
+                File.AppendAllLines(Tpath, new[]{ Time + emp + replacerlog});
+            }
         }
 
         
@@ -125,12 +131,18 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
 
         
         var replacer = ReplaceMessages(emp + Config.DisconnectPlayers, JoinPlayer, steamId2, steamId64.ToString(), ipAddress.ToString());
-        Server.PrintToChatAll(replacer);
+        if (!string.IsNullOrEmpty(Config.DisconnectPlayers))
+        {
+            Server.PrintToChatAll(replacer);
+        }
 
         if(Config.CnDModeLogs)
         {
             var replacerlog = ReplaceMessages(Config.DisconnectPlayersLog, JoinPlayer, steamId2, steamId64.ToString(), ipAddress.ToString());
-            File.AppendAllLines(Tpath, new[]{ Time + emp + replacerlog});
+            if (!string.IsNullOrEmpty(Config.DisconnectPlayersLog))
+            {
+                File.AppendAllLines(Tpath, new[]{ Time + emp + replacerlog});
+            }
         }
 
         
