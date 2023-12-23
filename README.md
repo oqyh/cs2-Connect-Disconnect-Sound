@@ -1,4 +1,4 @@
-# [CS2] Connect-Disconnect-Sound (1.0.0)
+# [CS2] Connect-Disconnect-Sound (1.0.1)
 
 ### Connect , Disconnect , Message , Sound , Logs
 
