@@ -21,7 +21,7 @@
   //{IP} = 127.0.0.0
   //Colors Available = "{default} {white} {darkred} {green} {lightyellow}" "{lightblue} {olive} {lime} {red} {lightpurple}"
                       //"{purple} {grey} {yellow} {gold} {silver}" "{blue} {darkblue} {bluegrey} {magenta} {lightred}" "{orange}"
-
+  //TO DISABLE MAKE IT "" empty
   "ConnectPlayers": "{green}Gold KingZ {grey}| {purple}{PLAYERNAME} {lime}Connected To The Server {STEAMID}",
   "DisconnectPlayers": "{green}Gold KingZ {grey}| {purple}{PLAYERNAME} {red}Disconnected To The Server {STEAMID}",
 
@@ -47,6 +47,7 @@
   //{STEAMID} = STEAM_0:1:122910632
   //{STEAMID64} = 76561198206086993
   //{IP} = 127.0.0.0
+  //TO DISABLE MAKE IT "" empty
   "ConnectPlayersLog": "{PLAYERNAME} Connected SteamdID:{STEAMID}",
   "DisconnectPlayersLog": "{PLAYERNAME} Disconnected SteamdID:{STEAMID}",
 
