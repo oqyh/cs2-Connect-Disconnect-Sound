@@ -11,7 +11,6 @@
 ## .:[ Configuration ]:.
 ```json
 {
-  //----------------------------------------------------------------------------------------------------------------//
   // you can use these in Connect or Disconnect Message
   //{PLAYERNAME} == Player Who Joined
   //{STEAMID} = STEAM_0:1:122910632
@@ -19,7 +18,6 @@
 
   "ConnectPlayers": "{green}Gold KingZ {grey}| {purple}{PLAYERNAME} {lime}Connected To The Server {STEAMID}",
   "DisconnectPlayers": "{green}Gold KingZ {grey}| {purple}{PLAYERNAME} {red}Disconnected To The Server {STEAMID}",
-  //----------------------------------------------------------------------------------------------------------------//
 
 
   // you can test any sound path ingame console type "play <soundpath>"
@@ -28,7 +26,6 @@
   "ConnectSoundPath": "sounds/buttons/bell1.vsnd_c",
   "DisconnectSound": false,
   "DisconnectSoundPath": "sounds/buttons/blip1.vsnd_c",
-  //----------------------------------------------------------------------------------------------------------------//
 
 
   // If Its Enabled Logs Will Located in ../addons/counterstrikesharp/plugins/CnD_Sound/logs/
@@ -41,7 +38,7 @@
   // Connect or Disconnect Message Inside Log
   "ConnectPlayersLog": "{PLAYERNAME} Connected SteamdID:{STEAMID}",
   "DisconnectPlayersLog": "{PLAYERNAME} Disconnected SteamdID:{STEAMID}",
-  //----------------------------------------------------------------------------------------------------------------//
+
   "ConfigVersion": 1
 }
 ```
