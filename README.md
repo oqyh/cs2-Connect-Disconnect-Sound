@@ -2,6 +2,9 @@
 
 ### Connect , Disconnect , Message , Sound , Logs
 
+![join](https://github.com/oqyh/cs2-Connect-Disconnect-Sound/assets/48490385/174218a8-c639-4921-9418-04da92eff24b)
+![log](https://github.com/oqyh/cs2-Connect-Disconnect-Sound/assets/48490385/854b2103-1b82-4bb5-842d-3d5a3b6fe4b3)
+
 
 ## .:[ Dependencies ]:.
 [Metamod:Source (2.x)](https://www.sourcemm.net/downloads.php/?branch=master)
