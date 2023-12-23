@@ -24,7 +24,7 @@
 
 
   // you can test any sound path ingame console type "play <soundpath>"
-  // Sound Path will in  https://github.com/oqyh/cs2-Connect-Disconnect-Sound/sounds/sounds.txt
+  // Sound Path will in  https://github.com/oqyh/cs2-Connect-Disconnect-Sound/blob/main/sounds/sounds.txt
   "ConnectSound": false,
   "ConnectSoundPath": "sounds/buttons/bell1.vsnd_c",
   "DisconnectSound": false,
