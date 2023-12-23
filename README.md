@@ -31,7 +31,7 @@
   //----------------------------------------------------------------------------------------------------------------//
 
 
-  // Enable Logs Will be in ../addons/counterstrikesharp/plugins/CnD_Sound/logs/
+  // If Its Enabled Logs Will Located in ../addons/counterstrikesharp/plugins/CnD_Sound/logs/
   "CnDModeLogs": false,
   // Log File Format .txt or .pdf ect...
   "LogFileFormat": ".txt",
