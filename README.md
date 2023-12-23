@@ -18,6 +18,8 @@
   //{PLAYERNAME} == Player Who Joined
   //{STEAMID} = STEAM_0:1:122910632
   //{STEAMID64} = 76561198206086993
+  //Colors Available = "{default} {white} {darkred} {green} {lightyellow}" "{lightblue} {olive} {lime} {red} {lightpurple}"
+                      //"{purple} {grey} {yellow} {gold} {silver}" "{blue} {darkblue} {bluegrey} {magenta} {lightred}" "{orange}"
 
   "ConnectPlayers": "{green}Gold KingZ {grey}| {purple}{PLAYERNAME} {lime}Connected To The Server {STEAMID}",
   "DisconnectPlayers": "{green}Gold KingZ {grey}| {purple}{PLAYERNAME} {red}Disconnected To The Server {STEAMID}",
