@@ -48,8 +48,8 @@
   //{STEAMID64} = 76561198206086993
   //{IP} = 127.0.0.0
   //TO DISABLE MAKE IT "" empty
-  "ConnectPlayersLog": "{PLAYERNAME} Connected SteamdID:{STEAMID}",
-  "DisconnectPlayersLog": "{PLAYERNAME} Disconnected SteamdID:{STEAMID}",
+  "ConnectPlayersLog": "{PLAYERNAME} Connected SteamdID:{STEAMID} ipAddress:{IP}",
+  "DisconnectPlayersLog": "{PLAYERNAME} Disconnected SteamdID:{STEAMID} ipAddress:{IP}",
 
   "ConfigVersion": 1
 }
