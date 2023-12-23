@@ -64,6 +64,9 @@
 "ConnectPlayersLog"
 "DisconnectPlayersLog"
 
+-Fixed if "ConnectPlayers" / "DisconnectPlayers" / "ConnectPlayersLog" / "DisconnectPlayersLog"
+empty then disable it
+
 (1.0.0)
 -Initial Release
 ```
