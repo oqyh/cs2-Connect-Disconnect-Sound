@@ -20,14 +20,14 @@ public class CnDSoundConfig : BasePluginConfig
     [JsonPropertyName("LogFileFormat")] public string LogFileFormat { get; set; } = ".txt";
     [JsonPropertyName("LogFileDateFormat")] public string LogFileDateFormat { get; set; } = "MM-dd-yyyy";
     [JsonPropertyName("LogInsideFileTimeFormat")] public string LogInsideFileTimeFormat { get; set; } = "HH:mm:ss";
-    [JsonPropertyName("ConnectPlayersLog")] public string ConnectPlayersLog { get; set; } = "{PLAYERNAME} Connected SteamdID:{STEAMID}";
-    [JsonPropertyName("DisconnectPlayersLog")] public string DisconnectPlayersLog { get; set; } = "{PLAYERNAME} Disconnected SteamdID:{STEAMID}";
+    [JsonPropertyName("ConnectPlayersLog")] public string ConnectPlayersLog { get; set; } = "{PLAYERNAME} Connected SteamdID:{STEAMID} ipAddress:{IP}";
+    [JsonPropertyName("DisconnectPlayersLog")] public string DisconnectPlayersLog { get; set; } = "{PLAYERNAME} Disconnected SteamdID:{STEAMID} ipAddress:{IP}";
 }
 
 public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
 {
     public override string ModuleName => "Connect Disconnect Sound";
-    public override string ModuleVersion => "1.0.0";
+    public override string ModuleVersion => "1.0.1";
     public override string ModuleAuthor => "Gold KingZ";
     public override string ModuleDescription => "Connect , Disconnect , Message , Sound , Logs";
     public CnDSoundConfig Config { get; set; } = new CnDSoundConfig();
@@ -66,17 +66,19 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
         var JoinPlayer = player.PlayerName;
         var steamId2 = player.AuthorizedSteamID.SteamId2;
         var steamId64 = player.AuthorizedSteamID.SteamId64;
+        var GetIpAddress = NativeAPI.GetPlayerIpAddress(playerSlot);
+        var ipAddress = GetIpAddress.Split(':')[0];
         //playerz = Utilities.GetPlayerFromUserid(userid);
         //steamid = playerz.SteamID.ToString();
         string emp = " ";
 
         
-        var replacer = ReplaceMessages(emp + Config.ConnectPlayers, JoinPlayer, steamId2, steamId64.ToString());
+        var replacer = ReplaceMessages(emp + Config.ConnectPlayers, JoinPlayer, steamId2, steamId64.ToString(), ipAddress.ToString());
         Server.PrintToChatAll(replacer);
 
         if(Config.CnDModeLogs)
         {
-            var replacerlog = ReplaceMessages(Config.ConnectPlayersLog, JoinPlayer, steamId2, steamId64.ToString());
+            var replacerlog = ReplaceMessages(Config.ConnectPlayersLog, JoinPlayer, steamId2, steamId64.ToString(), ipAddress.ToString());
             File.AppendAllLines(Tpath, new[]{ Time + emp + replacerlog});
         }
 
@@ -115,17 +117,19 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
         var JoinPlayer = player.PlayerName;
         var steamId2 = player.AuthorizedSteamID.SteamId2;
         var steamId64 = player.AuthorizedSteamID.SteamId64;
+        var GetIpAddress = NativeAPI.GetPlayerIpAddress(playerSlot);
+        var ipAddress = GetIpAddress.Split(':')[0];
         //playerz = Utilities.GetPlayerFromUserid(userid);
         //steamid = playerz.SteamID.ToString();
         string emp = " ";
 
         
-        var replacer = ReplaceMessages(emp + Config.DisconnectPlayers, JoinPlayer, steamId2, steamId64.ToString());
+        var replacer = ReplaceMessages(emp + Config.DisconnectPlayers, JoinPlayer, steamId2, steamId64.ToString(), ipAddress.ToString());
         Server.PrintToChatAll(replacer);
 
         if(Config.CnDModeLogs)
         {
-            var replacerlog = ReplaceMessages(Config.DisconnectPlayersLog, JoinPlayer, steamId2, steamId64.ToString());
+            var replacerlog = ReplaceMessages(Config.DisconnectPlayersLog, JoinPlayer, steamId2, steamId64.ToString(), ipAddress.ToString());
             File.AppendAllLines(Tpath, new[]{ Time + emp + replacerlog});
         }
 
@@ -142,12 +146,13 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
     }
 
     
-    private string ReplaceMessages(string Message, string PlayerName, string SteamId, string SteamId64)
+    private string ReplaceMessages(string Message, string PlayerName, string SteamId, string SteamId64, string ipAddress)
     {
         var replacedMessage = Message
                                     .Replace("{PLAYERNAME}", PlayerName.ToString())
                                     .Replace("{STEAMID}", SteamId.ToString())
-                                    .Replace("{STEAMID64}", SteamId64.ToString());
+                                    .Replace("{STEAMID64}", SteamId64.ToString())
+                                    .Replace("{IP}", ipAddress.ToString());
         replacedMessage = ReplaceColors(replacedMessage);
         return replacedMessage;
     }
