@@ -35,7 +35,7 @@
   "CnDModeLogs": false,
   // Log File Format .txt or .pdf ect...
   "LogFileFormat": ".txt",
-  // Date Time Formate
+  // Date and Time Formate
   "LogFileDateFormat": "MM-dd-yyyy",
   "LogInsideFileTimeFormat": "HH:mm:ss",
   // Connect or Disconnect Message Inside Log
