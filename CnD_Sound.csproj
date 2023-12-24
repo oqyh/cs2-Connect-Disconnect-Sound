@@ -18,6 +18,9 @@
 
  <ItemGroup>
    <PackageReference Include="Nexd.MySQL" Version="1.0.1" />
+   <PackageReference Include="MaxMind.Db" Version="4.1.0" />
+   <PackageReference Include="MaxMind.GeoIP2" Version="5.2.0" />
+   <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
  </ItemGroup>
 
 </Project>
