@@ -9,11 +9,17 @@
 
 ## .:[ Dependencies ]:.
 [Metamod:Source (2.x)](https://www.sourcemm.net/downloads.php/?branch=master)
+
 [CounterStrikeSharp](https://github.com/roflmuffin/CounterStrikeSharp/releases)
+
 [GeoLite2-City.mmdb](https://github.com/P3TERX/GeoLite.mmdb) (Country, City, databases) [[Must Be inside ../addons/counterstrikesharp/plugins/CnD_Sound/GeoLocation/]]
+
 [MaxMind.Db](https://www.nuget.org/packages/MaxMind.Db) (Geo Locations)
+
 [MaxMind.GeoIP2](https://www.nuget.org/packages/MaxMind.GeoIP2) (Geo Locations)
+
 [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json) (Discord WebHook)
+
 
 
 ## .:[ Configuration ]:.
