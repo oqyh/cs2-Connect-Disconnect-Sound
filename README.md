@@ -31,7 +31,7 @@
   //{PLAYERNAME} == Player Who Joined
   //{LONGCOUNTRY} == ex: United Arab Emirates
   //{SHORTCOUNTRY} == ex: AE
-  //{CITY} == ex: AE
+  //{CITY} == ex: Abu Dhabi
   //{STEAMID} = STEAM_0:1:122910632
   //{STEAMID3} = U:1:245821265
   //{STEAMID32} = 245821265
