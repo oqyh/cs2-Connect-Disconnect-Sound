@@ -1,4 +1,4 @@
-# [CS2] Connect-Disconnect-Sound (1.0.2)
+# [CS2] Connect-Disconnect-Sound (1.0.3)
 
 ### Connect , Disconnect , Country , City , Message , Sound , Logs , Discord
 
@@ -26,19 +26,24 @@
 ```json
 {
   // you can use these in Connect or Disconnect Message
+  //{TIME} == Time Formate "LogInsideFileTimeFormat"
+  //{DATE} == Date Formate "LogFileDateFormat"
   //{PLAYERNAME} == Player Who Joined
   //{LONGCOUNTRY} == ex: United Arab Emirates
   //{SHORTCOUNTRY} == ex: AE
   //{CITY} == ex: AE
   //{STEAMID} = STEAM_0:1:122910632
+  //{STEAMID3} = U:1:245821265
+  //{STEAMID32} = 245821265
   //{STEAMID64} = 76561198206086993
   //{IP} = 127.0.0.0
   //Colors Available = "{default} {white} {darkred} {green} {lightyellow}" "{lightblue} {olive} {lime} {red} {lightpurple}"
                       //"{purple} {grey} {yellow} {gold} {silver}" "{blue} {darkblue} {bluegrey} {magenta} {lightred}" "{orange}"
-  //TO DISABLE MAKE IT "" empty
+
+
+  //Connect And Disconnect Format In Game, TO DISABLE MAKE IT "" empty
   "ConnectPlayers": "{green}Gold KingZ {grey}| {purple}{PLAYERNAME} {lime}Connected {SHORTCOUNTRY} {CITY}",
   "DisconnectPlayers": "{green}Gold KingZ {grey}| {purple}{PLAYERNAME} {red}Disconnected {SHORTCOUNTRY} {CITY}",
-
 
   // you can test any sound path ingame console type "play <soundpath>"
   // Sound Path will in  https://github.com/oqyh/cs2-Connect-Disconnect-Sound/blob/main/sounds/sounds.txt
@@ -55,20 +60,16 @@
   // Date and Time Formate
   "LogFileDateFormat": "MM-dd-yyyy",
   "LogInsideFileTimeFormat": "HH:mm:ss",
+  //Connect And Disconnect Format In Log, TO DISABLE MAKE IT "" empty
+  "ConnectPlayersLog": "[{TIME}] [Playername:{PLAYERNAME}] CONNECTED TO THE SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]",
+  "DisconnectPlayersLog": "[{TIME}] [Playername:{PLAYERNAME}] DISCONNECTED FROM SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]",
 
-  // you can use these in Connect or Disconnect Message
-  //{PLAYERNAME} == Player Who Joined
-  //{LONGCOUNTRY} == ex: United Arab Emirates
-  //{SHORTCOUNTRY} == ex: AE
-  //{CITY} == ex: AE
-  //{STEAMID} = STEAM_0:1:122910632
-  //{STEAMID64} = 76561198206086993
-  //{IP} = 127.0.0.0
-  //TO DISABLE MAKE IT "" empty
-  "ConnectPlayersLog": "[Playername:{PLAYERNAME}] CONNECTED TO THE SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]",
-  "DisconnectPlayersLog": "[Playername:{PLAYERNAME}] DISCONNECTED FROM SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]",
+
+
   //Send Log To Discord Via WebHookURL
   "SendLogToWebHook": false,
+  "LogDiscordChatFormatConnect": "[{DATE} - {TIME}] [Playername:{PLAYERNAME}] CONNECTED TO THE SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]",
+  "LogDiscordChatFormatDisconnect": "[{DATE} - {TIME}] [Playername:{PLAYERNAME}] DISCONNECTED FROM SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]",
   "WebHookURL": "https://discord.com/api/webhooks/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 
   "ConfigVersion": 1
@@ -78,6 +79,21 @@
 
 ## .:[ Change Log ]:.
 ```
+(1.0.3)
+-Added "LogDiscordChatFormatConnect"
+-Added "LogDiscordChatFormatDisconnect" 
+
+-Added {TIME} {DATE} {STEAMID3} {STEAMID32} To
+"LogDiscordChatFormatConnect"
+"LogDiscordChatFormatDisconnect" 
+"ConnectPlayers"
+"DisconnectPlayers"
+"ConnectPlayersLog"
+"DisconnectPlayersLog"
+
+-Fix CnDModeLogs Error If has no Permissions To Write [CnD_Sound.dll]
+-Fix Discord Message Lag Spike Game Server Task.WaitAll To Task.Run
+
 (1.0.2)
 -Added {LONGCOUNTRY}  {SHORTCOUNTRY} {CITY} To
 "ConnectPlayers"
