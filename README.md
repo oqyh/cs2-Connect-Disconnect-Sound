@@ -37,8 +37,8 @@
   //{STEAMID32} = 245821265
   //{STEAMID64} = 76561198206086993
   //{IP} = 127.0.0.0
-  //Colors Available = "{default} {white} {darkred} {green} {lightyellow}" "{lightblue} {olive} {lime} {red} {lightpurple}"
-                      //"{purple} {grey} {yellow} {gold} {silver}" "{blue} {darkblue} {bluegrey} {magenta} {lightred}" "{orange}"
+  //Colors Available = {default} {white} {darkred} {green} {lightyellow} {lightblue} {olive} {lime} {red} {lightpurple}
+                      //{purple} {grey} {yellow} {gold} {silver} {blue} {darkblue} {bluegrey} {magenta} {lightred} {orange}
 
 
   //Connect And Disconnect Format In Game, TO DISABLE MAKE IT "" empty
