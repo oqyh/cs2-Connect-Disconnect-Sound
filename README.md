@@ -68,6 +68,7 @@
 
   //Send Log To Discord Via WebHookURL
   "SendLogToWebHook": false,
+  //Connect And Disconnect Format In Discord, TO DISABLE MAKE IT "" empty
   "LogDiscordChatFormatConnect": "[{DATE} - {TIME}] [Playername:{PLAYERNAME}] CONNECTED TO THE SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]",
   "LogDiscordChatFormatDisconnect": "[{DATE} - {TIME}] [Playername:{PLAYERNAME}] DISCONNECTED FROM SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]",
   "WebHookURL": "https://discord.com/api/webhooks/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
