@@ -208,7 +208,7 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
             players.ExecuteClientCommand("play " + Config.DisconnectSoundPath);
         }
     }
-    private string ReplaceMessages(string Message, string time, string date, string PlayerName, string SteamId, string SteamId3, string SteamId32, string SteamId64, string ipAddress, string Country, string SCountry, string City)
+    private string ReplaceMessages(string Message, string date, string time, string PlayerName, string SteamId, string SteamId3, string SteamId32, string SteamId64, string ipAddress, string Country, string SCountry, string City)
     {
         var replacedMessage = Message
                                     .Replace("{TIME}", time)
