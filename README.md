@@ -1,4 +1,4 @@
-# [CS2] Connect-Disconnect-Sound (1.0.3)
+# [CS2] Connect-Disconnect-Sound (1.0.4)
 
 ### Connect , Disconnect , Country , City , Message , Sound , Logs , Discord
 
@@ -42,37 +42,43 @@
 
 
   //Connect And Disconnect Format In Game, TO DISABLE MAKE IT "" empty
-  "ConnectPlayers": "{green}Gold KingZ {grey}| {purple}{PLAYERNAME} {lime}Connected {SHORTCOUNTRY} {CITY}",
-  "DisconnectPlayers": "{green}Gold KingZ {grey}| {purple}{PLAYERNAME} {red}Disconnected {SHORTCOUNTRY} {CITY}",
+  "MessageConsoleFormatConnect": "{green}Gold KingZ {grey}| {purple}{PLAYERNAME} {lime}Connected [{SHORTCOUNTRY} - {CITY}]",
+  "MessageConsoleFormatDisconnect": "{green}Gold KingZ {grey}| {purple}{PLAYERNAME} {red}Disconnected [{SHORTCOUNTRY} - {CITY}]",
 
   // you can test any sound path ingame console type "play <soundpath>"
   // Sound Path will in  https://github.com/oqyh/cs2-Connect-Disconnect-Sound/blob/main/sounds/sounds.txt
-  "ConnectSound": false,
-  "ConnectSoundPath": "sounds/buttons/bell1.vsnd_c",
-  "DisconnectSound": false,
-  "DisconnectSoundPath": "sounds/buttons/blip1.vsnd_c",
+  "ConnectSound": true,
+  "ConnectSoundPath": "sounds/buttons/blip1.vsnd_c",
+  "DisconnectSound": true,
+  "DisconnectSoundPath": "sounds/player/taunt_clap_01.vsnd_c",
 
 
   // If Its Enabled Logs Will Located in ../addons/counterstrikesharp/plugins/CnD_Sound/logs/
-  "CnDModeLogs": false,
+  "SendLogToText": false,
   // Log File Format .txt or .pdf ect...
   "LogFileFormat": ".txt",
   // Date and Time Formate
   "LogFileDateFormat": "MM-dd-yyyy",
   "LogInsideFileTimeFormat": "HH:mm:ss",
   //Connect And Disconnect Format In Log, TO DISABLE MAKE IT "" empty
-  "ConnectPlayersLog": "[{TIME}] [Playername:{PLAYERNAME}] CONNECTED TO THE SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]",
-  "DisconnectPlayersLog": "[{TIME}] [Playername:{PLAYERNAME}] DISCONNECTED FROM SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]",
+  "LogTextFormatConnect": "[{TIME}] [Playername:{PLAYERNAME}] CONNECTED TO THE SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]",
+  "LogTextFormatDisconnect": "[{TIME}] [Playername:{PLAYERNAME}] DISCONNECTED FROM SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]",
 
 
 
   //Send Log To Discord Via WebHookURL
   "SendLogToWebHook": false,
+  "WebHookURL": "https://discord.com/api/webhooks/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   //Connect And Disconnect Format In Discord, TO DISABLE MAKE IT "" empty
   "LogDiscordChatFormatConnect": "[{DATE} - {TIME}] [Playername:{PLAYERNAME}] CONNECTED TO THE SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]",
   "LogDiscordChatFormatDisconnect": "[{DATE} - {TIME}] [Playername:{PLAYERNAME}] DISCONNECTED FROM SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]",
-  "WebHookURL": "https://discord.com/api/webhooks/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 
+
+
+  //Send Log To Server Console
+  "SendLogToServerConsole": false,
+  "LogServerConsoleFormatConnect": "[{DATE} - {TIME}] [Playername:{PLAYERNAME}] CONNECTED TO THE SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]",
+  "LogServerConsoleFormatDisconnect": "[{DATE} - {TIME}] [Playername:{PLAYERNAME}] DISCONNECTED FROM SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]",
   "ConfigVersion": 1
 }
 ```
@@ -80,6 +86,15 @@
 
 ## .:[ Change Log ]:.
 ```
+(1.0.4)
+-Added "SendLogToServerConsole"
+-Added "LogDiscordChatFormatDisconnect" 
+-Added "LogServerConsoleFormatDisconnect"
+-Added "ConnectSoundPath" and "DisconnectSound" good sounds and not annoying
+-Fix Some Bugs
+-Fix {TIME} and {DATE} Swapped
+-Fix Discord message now better style with link to steam
+
 (1.0.3)
 -Added "LogDiscordChatFormatConnect"
 -Added "LogDiscordChatFormatDisconnect" 
