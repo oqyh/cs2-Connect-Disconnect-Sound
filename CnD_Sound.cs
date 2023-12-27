@@ -9,37 +9,42 @@ namespace CnD_Sound;
 
 public class CnDSoundConfig : BasePluginConfig
 {
-    [JsonPropertyName("ConnectPlayers")] public string ConnectPlayers { get; set; } = "{green}Gold KingZ {grey}| {purple}{PLAYERNAME} {lime}Connected {SHORTCOUNTRY} {CITY}";
-    [JsonPropertyName("DisconnectPlayers")] public string DisconnectPlayers { get; set; } = "{green}Gold KingZ {grey}| {purple}{PLAYERNAME} {red}Disconnected {SHORTCOUNTRY} {CITY}";
+    [JsonPropertyName("MessageConsoleFormatConnect")] public string MessageConsoleFormatConnect { get; set; } = "{green}Gold KingZ {grey}| {purple}{PLAYERNAME} {lime}Connected [{SHORTCOUNTRY} - {CITY}]";
+    [JsonPropertyName("MessageConsoleFormatDisconnect")] public string MessageConsoleFormatDisconnect { get; set; } = "{green}Gold KingZ {grey}| {purple}{PLAYERNAME} {red}Disconnected [{SHORTCOUNTRY} - {CITY}]";
 
 
 
-    [JsonPropertyName("ConnectSound")] public bool ConnectSound { get; set; } = false;
-    [JsonPropertyName("ConnectSoundPath")] public string ConnectSoundPath { get; set; } = "sounds/buttons/bell1.vsnd_c";
-    [JsonPropertyName("DisconnectSound")] public bool DisconnectSound { get; set; } = false;
-    [JsonPropertyName("DisconnectSoundPath")] public string DisconnectSoundPath { get; set; } = "sounds/buttons/blip1.vsnd_c";
+    [JsonPropertyName("ConnectSound")] public bool ConnectSound { get; set; } = true;
+    [JsonPropertyName("ConnectSoundPath")] public string ConnectSoundPath { get; set; } = "sounds/buttons/blip1.vsnd_c";
+    [JsonPropertyName("DisconnectSound")] public bool DisconnectSound { get; set; } = true;
+    [JsonPropertyName("DisconnectSoundPath")] public string DisconnectSoundPath { get; set; } = "sounds/player/taunt_clap_01.vsnd_c";
 
 
 
-    [JsonPropertyName("CnDModeLogs")] public bool CnDModeLogs { get; set; } = false;
+    [JsonPropertyName("SendLogToText")] public bool SendLogToText { get; set; } = false;
     [JsonPropertyName("LogFileFormat")] public string LogFileFormat { get; set; } = ".txt";
     [JsonPropertyName("LogFileDateFormat")] public string LogFileDateFormat { get; set; } = "MM-dd-yyyy";
     [JsonPropertyName("LogInsideFileTimeFormat")] public string LogInsideFileTimeFormat { get; set; } = "HH:mm:ss";
-    [JsonPropertyName("ConnectPlayersLog")] public string ConnectPlayersLog { get; set; } = "[{TIME}] [Playername:{PLAYERNAME}] CONNECTED TO THE SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]";
-    [JsonPropertyName("DisconnectPlayersLog")] public string DisconnectPlayersLog { get; set; } = "[{TIME}] [Playername:{PLAYERNAME}] DISCONNECTED FROM SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]";
+    [JsonPropertyName("LogTextFormatConnect")] public string LogTextFormatConnect { get; set; } = "[{TIME}] [Playername:{PLAYERNAME}] CONNECTED TO THE SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]";
+    [JsonPropertyName("LogTextFormatDisconnect")] public string LogTextFormatDisconnect { get; set; } = "[{TIME}] [Playername:{PLAYERNAME}] DISCONNECTED FROM SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]";
 
 
 
     [JsonPropertyName("SendLogToWebHook")] public bool SendLogToWebHook { get; set; } = false;
     [JsonPropertyName("WebHookURL")] public string WebHookURL { get; set; } = "https://discord.com/api/webhooks/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-    [JsonPropertyName("LogDiscordChatFormatConnect")] public string LogDiscordChatFormatConnect { get; set; } = "[{DATE} - {TIME}] [Playername:{PLAYERNAME}] CONNECTED TO THE SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]";
-    [JsonPropertyName("LogDiscordChatFormatDisconnect")] public string LogDiscordChatFormatDisconnect { get; set; } = "[{DATE} - {TIME}] [Playername:{PLAYERNAME}] DISCONNECTED FROM SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]";
+    [JsonPropertyName("LogDiscordChatFormatConnect")] public string LogDiscordChatFormatConnect { get; set; } = "[{DATE} - {TIME}] CONNECTED TO THE SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]";
+    [JsonPropertyName("LogDiscordChatFormatDisconnect")] public string LogDiscordChatFormatDisconnect { get; set; } = "[{DATE} - {TIME}] DISCONNECTED FROM SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]";
+	
+	
+	[JsonPropertyName("SendLogToServerConsole")] public bool SendLogToServerConsole { get; set; } = false;
+    [JsonPropertyName("LogServerConsoleFormatConnect")] public string LogServerConsoleFormatConnect { get; set; } = "[{DATE} - {TIME}] [Playername:{PLAYERNAME}] CONNECTED TO THE SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]";
+    [JsonPropertyName("LogServerConsoleFormatDisconnect")] public string LogServerConsoleFormatDisconnect { get; set; } = "[{DATE} - {TIME}] [Playername:{PLAYERNAME}] DISCONNECTED FROM SERVER [SteamdID64:{STEAMID64}] [IpAddress:{IP}] [Long Country:{LONGCOUNTRY}] [City:{CITY}]";
 }
 
 public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
 {
     public override string ModuleName => "Connect Disconnect Sound";
-    public override string ModuleVersion => "1.0.3";
+    public override string ModuleVersion => "1.0.4";
     public override string ModuleAuthor => "Gold KingZ";
     public override string ModuleDescription => "Connect , Disconnect , Country , City , Message , Sound , Logs , Discord";
     public CnDSoundConfig Config { get; set; } = new CnDSoundConfig();
@@ -62,17 +67,16 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
         string fileName = DateTime.Now.ToString(Config.LogFileDateFormat) + Config.LogFileFormat;
         string Tpath = Path.Combine(ModuleDirectory,"../../plugins/CnD_Sound/logs/") + $"{fileName}";
 
-        if(Config.CnDModeLogs && !Directory.Exists(Fpath))
+        if(Config.SendLogToText && !Directory.Exists(Fpath))
         {
             Directory.CreateDirectory(Fpath);
         }
 
-        if(Config.CnDModeLogs && !File.Exists(Tpath))
+        if(Config.SendLogToText && !File.Exists(Tpath))
         {
             File.Create(Tpath);
         }
         
-
         CCSPlayerController player = Utilities.GetPlayerFromSlot(playerSlot);
         if (player == null || !player.IsValid || player.IsBot || player.IsHLTV || player.AuthorizedSteamID == null)return;
 
@@ -86,19 +90,27 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
         var Country = GetCountry(ipAddress);
         var SCountry = GetCountryS(ipAddress);
         var City = GetCity(ipAddress);
-        
         string emp = " ";
 
-        if (!string.IsNullOrEmpty(Config.ConnectPlayers))
+        if (!string.IsNullOrEmpty(Config.MessageConsoleFormatConnect))
         {
-            var replacer = ReplaceMessages(emp + Config.ConnectPlayers, Date, Time, JoinPlayer, steamId2, steamId3, steamId32.ToString(), steamId64.ToString(), ipAddress.ToString(), Country, SCountry, City);
+            var replacer = ReplaceMessages(emp + Config.MessageConsoleFormatConnect, Date, Time, JoinPlayer, steamId2, steamId3, steamId32.ToString(), steamId64.ToString(), ipAddress.ToString(), Country, SCountry, City);
             Server.PrintToChatAll(replacer);
         }
 
-        if(Config.CnDModeLogs)
+        if(Config.SendLogToServerConsole)
         {
-            var replacerlog = ReplaceMessages(Config.ConnectPlayersLog, Date, Time, JoinPlayer, steamId2, steamId3, steamId32.ToString(), steamId64.ToString(), ipAddress.ToString(), Country, SCountry, City);
-            if (!string.IsNullOrEmpty(Config.ConnectPlayersLog) && File.Exists(Tpath))
+            if (!string.IsNullOrEmpty(Config.LogServerConsoleFormatConnect))
+            {
+                var replacer = ReplaceMessages(Config.LogServerConsoleFormatConnect, Date, Time, JoinPlayer, steamId2, steamId3, steamId32.ToString(), steamId64.ToString(), ipAddress.ToString(), Country, SCountry, City);
+                Server.PrintToConsole(replacer);
+            }
+        }
+
+        if(Config.SendLogToText)
+        {
+            var replacerlog = ReplaceMessages(Config.LogTextFormatConnect, Date, Time, JoinPlayer, steamId2, steamId3, steamId32.ToString(), steamId64.ToString(), ipAddress.ToString(), Country, SCountry, City);
+            if (!string.IsNullOrEmpty(Config.LogTextFormatConnect) && File.Exists(Tpath))
             {
                 try
                 {
@@ -111,24 +123,24 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
                 }
             }
         }
+
         if(Config.SendLogToWebHook)
         {
             var replacerlog = ReplaceMessages(Config.LogDiscordChatFormatConnect, Date, Time, JoinPlayer, steamId2, steamId3, steamId32.ToString(), steamId64.ToString(), ipAddress.ToString(), Country, SCountry, City);
             if (!string.IsNullOrEmpty(Config.LogDiscordChatFormatConnect))
             {
-                Task.Run(() => SendToDiscordWebhook(Config.WebHookURL, replacerlog));
+                Task.Run(() => SendToDiscordWebhook(Config.WebHookURL, replacerlog, steamId64.ToString(), JoinPlayer));
             }
         }
 
-        
-
-        if(!Config.ConnectSound)return;
-
-        foreach(var players in GetPlayerControllers().FindAll(x => x.Connected == PlayerConnectedState.PlayerConnected && !x.IsBot))
+        if(Config.ConnectSound)
         {
-            if (!player.IsValid) continue;
+            foreach(var players in GetPlayerControllers().FindAll(x => x.Connected == PlayerConnectedState.PlayerConnected && !x.IsBot))
+            {
+                if (!player.IsValid) continue;
 
-            players.ExecuteClientCommand("play " + Config.ConnectSoundPath);
+                players.ExecuteClientCommand("play " + Config.ConnectSoundPath);
+            }
         }
     }
     private void OnClientDisconnect(int playerSlot)
@@ -139,17 +151,16 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
         string fileName = DateTime.Now.ToString(Config.LogFileDateFormat) + Config.LogFileFormat;
         string Tpath = Path.Combine(ModuleDirectory,"../../plugins/CnD_Sound/logs/") + $"{fileName}";
 
-        if(Config.CnDModeLogs && !Directory.Exists(Fpath))
+        if(Config.SendLogToText && !Directory.Exists(Fpath))
         {
             Directory.CreateDirectory(Fpath);
         }
 
-        if(Config.CnDModeLogs && !File.Exists(Tpath))
+        if(Config.SendLogToText && !File.Exists(Tpath))
         {
             File.Create(Tpath);
         }
         
-
         CCSPlayerController player = Utilities.GetPlayerFromSlot(playerSlot);
         if (player == null || !player.IsValid || player.IsBot || player.IsHLTV || player.AuthorizedSteamID == null)return;
 
@@ -163,19 +174,27 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
         var Country = GetCountry(ipAddress);
         var SCountry = GetCountryS(ipAddress);
         var City = GetCity(ipAddress);
-        
         string emp = " ";
 
-        if (!string.IsNullOrEmpty(Config.DisconnectPlayers))
+        if (!string.IsNullOrEmpty(Config.MessageConsoleFormatDisconnect))
         {
-            var replacer = ReplaceMessages(emp + Config.DisconnectPlayers, Date, Time, JoinPlayer, steamId2, steamId3, steamId32.ToString(), steamId64.ToString(), ipAddress.ToString(), Country, SCountry, City);
+            var replacer = ReplaceMessages(emp + Config.MessageConsoleFormatDisconnect, Date, Time, JoinPlayer, steamId2, steamId3, steamId32.ToString(), steamId64.ToString(), ipAddress.ToString(), Country, SCountry, City);
             Server.PrintToChatAll(replacer);
         }
 
-        if(Config.CnDModeLogs)
+        if(Config.SendLogToServerConsole)
         {
-            var replacerlog = ReplaceMessages(Config.DisconnectPlayersLog, Date, Time, JoinPlayer, steamId2, steamId3, steamId32.ToString(), steamId64.ToString(), ipAddress.ToString(), Country, SCountry, City);
-            if (!string.IsNullOrEmpty(Config.DisconnectPlayersLog) && File.Exists(Tpath))
+            if (!string.IsNullOrEmpty(Config.LogServerConsoleFormatDisconnect))
+            {
+                var replacer = ReplaceMessages(Config.LogServerConsoleFormatDisconnect, Date, Time, JoinPlayer, steamId2, steamId3, steamId32.ToString(), steamId64.ToString(), ipAddress.ToString(), Country, SCountry, City);
+                Server.PrintToConsole(replacer);
+            }
+        }
+
+        if(Config.SendLogToText)
+        {
+            var replacerlog = ReplaceMessages(Config.LogTextFormatDisconnect, Date, Time, JoinPlayer, steamId2, steamId3, steamId32.ToString(), steamId64.ToString(), ipAddress.ToString(), Country, SCountry, City);
+            if (!string.IsNullOrEmpty(Config.LogTextFormatDisconnect) && File.Exists(Tpath))
             {
                 try
                 {
@@ -188,24 +207,24 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
                 }
             }
         }
+
         if(Config.SendLogToWebHook)
         {
             var replacerlog = ReplaceMessages(Config.LogDiscordChatFormatDisconnect, Date, Time, JoinPlayer, steamId2, steamId3, steamId32.ToString(), steamId64.ToString(), ipAddress.ToString(), Country, SCountry, City);
             if (!string.IsNullOrEmpty(Config.LogDiscordChatFormatDisconnect))
             {
-                Task.Run(() => SendToDiscordWebhook(Config.WebHookURL, replacerlog));
+                Task.Run(() => SendToDiscordWebhook(Config.WebHookURL, replacerlog, steamId64.ToString(), JoinPlayer));
             }
         }
 
-        
-
-        if(!Config.DisconnectSound)return;
-
-        foreach(var players in GetPlayerControllers().FindAll(x => x.Connected == PlayerConnectedState.PlayerConnected && !x.IsBot))
+        if(Config.DisconnectSound)
         {
-            if (!player.IsValid) continue;
+            foreach(var players in GetPlayerControllers().FindAll(x => x.Connected == PlayerConnectedState.PlayerConnected && !x.IsBot))
+            {
+                if (!player.IsValid) continue;
 
-            players.ExecuteClientCommand("play " + Config.DisconnectSoundPath);
+                players.ExecuteClientCommand("play " + Config.DisconnectSoundPath);
+            }
         }
     }
     private string ReplaceMessages(string Message, string date, string time, string PlayerName, string SteamId, string SteamId3, string SteamId32, string SteamId64, string ipAddress, string Country, string SCountry, string City)
@@ -248,12 +267,14 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
 
         return input;
     }
+
     private static List<CCSPlayerController> GetPlayerControllers() 
     {
         var playerList = Utilities.FindAllEntitiesByDesignerName<CCSPlayerController>("cs_player_controller").ToList();
 
         return playerList;
     }
+
     private string GetCountryS(string ipAddress)
     {
         try
@@ -273,6 +294,7 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
             return "U/C";
         }
     }
+
     private string GetCountry(string ipAddress)
     {
         try
@@ -292,6 +314,7 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
             return "Unknown Country";
         }
     }
+
     private string GetCity(string ipAddress)
     {
         try
@@ -311,25 +334,46 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
             return "Unknown City";
         }
     }
-    static async Task SendToDiscordWebhook(string webhookUrl, string message)
+
+    static async Task SendToDiscordWebhook(string webhookUrl, string message, string steamUserId, string STEAMNAME)
+{
+    string profileLink = GetSteamProfileLink(steamUserId);
+
+    using (HttpClient client = new HttpClient())
     {
-        using (HttpClient client = new HttpClient())
+        var embed = new
         {
-            var payload = new { content = message };
-            var jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
-            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
-
-            var response = await client.PostAsync(webhookUrl, content);
-
-            if (response.IsSuccessStatusCode)
+            description = message,
+            author = new
             {
-                
+                name = STEAMNAME,
+                url = profileLink
             }
-            else
-            {
-                Console.WriteLine($"Failed to send message. Status code: {response.StatusCode}, Response: {await response.Content.ReadAsStringAsync()}");
-            }
+        };
+
+        var payload = new
+        {
+            embeds = new[] { embed }
+        };
+
+        var jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
+        var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+        var response = await client.PostAsync(webhookUrl, content);
+
+        if (response.IsSuccessStatusCode)
+        {
+            Console.WriteLine("Message sent successfully!");
+        }
+        else
+        {
+            Console.WriteLine($"Failed to send message. Status code: {response.StatusCode}, Response: {await response.Content.ReadAsStringAsync()}");
         }
     }
-    
+}
+
+    static string GetSteamProfileLink(string userId)
+    {
+        return $"https://steamcommunity.com/profiles/{userId}";
+    }
 }
