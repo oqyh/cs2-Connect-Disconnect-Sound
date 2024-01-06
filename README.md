@@ -85,7 +85,8 @@
   "LogDiscordChatFormatDisconnect": "{PLAYERNAME} Disconnected [{SHORTCOUNTRY} - {CITY}]",
   
   //-----------------------------------------------------------------------------------------
-  
+
+  //Send Log To Server Console
   "SendLogToServerConsole": false,
   //To Disable Any Make It Empty Like This ""
   "LogServerConsoleFormatConnect": "Gold KingZ | {PLAYERNAME} Connected [{SHORTCOUNTRY} - {CITY}]",
