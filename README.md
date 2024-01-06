@@ -47,6 +47,8 @@
   
   //-----------------------------------------------------------------------------------------
   
+  // you can test any sound path ingame console type "play <soundpath>"
+  // Sound Path will in https://github.com/oqyh/cs2-Connect-Disconnect-Sound/blob/main/sounds/sounds.txt
   //To Disable Any Make It Empty Like This ""
   "InGameSoundConnect": "sounds/buttons/blip1.vsnd_c",
   "InGameSoundDisconnect": "sounds/player/taunt_clap_01.vsnd_c",
