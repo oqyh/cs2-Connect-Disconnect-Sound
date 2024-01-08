@@ -5,8 +5,6 @@ using MaxMind.GeoIP2;
 using MaxMind.GeoIP2.Exceptions;
 using System.Text;
 using System.Drawing;
-using CounterStrikeSharp.API.Core.Attributes;
-using CounterStrikeSharp.API.Modules.Entities;
 
 
 namespace CnD_Sound;
@@ -49,7 +47,7 @@ public class CnDSoundConfig : BasePluginConfig
 public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
 {
     public override string ModuleName => "Connect Disconnect Sound";
-    public override string ModuleVersion => "1.0.5";
+    public override string ModuleVersion => "1.0.6";
     public override string ModuleAuthor => "Gold KingZ";
     public override string ModuleDescription => "Connect , Disconnect , Country , City , Message , Sound , Logs , Discord";
     private static readonly HttpClient _httpClient = new HttpClient();
@@ -111,15 +109,15 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
         
         var player = Utilities.GetPlayerFromSlot(playerSlot);
 
-        if (player == null || !player.IsValid || player.IsBot || player.IsHLTV || player.AuthorizedSteamID == null|| player.IpAddress == null)return;
+        if (player == null || !player.IsValid || player.IsBot || player.IsHLTV)return;
 
         var JoinPlayer = player.PlayerName;
-        var steamId2 = player.AuthorizedSteamID.SteamId2;
-        var steamId3 = player.AuthorizedSteamID.SteamId3;
-        var steamId32 = player.AuthorizedSteamID.SteamId32;
-        var steamId64 = player.AuthorizedSteamID.SteamId64;
+        var steamId2 = (player.AuthorizedSteamID != null) ? player.AuthorizedSteamID.SteamId2 : "InvalidSteamID";
+        var steamId3 = (player.AuthorizedSteamID != null) ? player.AuthorizedSteamID.SteamId3 : "InvalidSteamID";
+        var steamId32 = (player.AuthorizedSteamID != null) ? player.AuthorizedSteamID.SteamId32.ToString() : "InvalidSteamID";
+        var steamId64 = (player.AuthorizedSteamID != null) ? player.AuthorizedSteamID.SteamId64.ToString() : "InvalidSteamID";
         var GetIpAddress = NativeAPI.GetPlayerIpAddress(playerSlot);
-        var ipAddress = GetIpAddress.Split(':')[0];
+        var ipAddress = GetIpAddress?.Split(':')[0] ?? "InValidIpAddress";
         var Country = GetCountry(ipAddress);
         var SCountry = GetCountryS(ipAddress);
         var City = GetCity(ipAddress);
@@ -182,8 +180,10 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
         {
             foreach(var players in GetPlayerControllers().FindAll(x => x.Connected == PlayerConnectedState.PlayerConnected && !x.IsBot))
             {
-                if (!player.IsValid) continue;
-                players.ExecuteClientCommand("play " + Config.InGameSoundConnect);
+                if (players.IsValid)
+                {
+                    players.ExecuteClientCommand("play " + Config.InGameSoundConnect);
+                }
             }
         }
     }
@@ -207,15 +207,15 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
         
         var player = Utilities.GetPlayerFromSlot(playerSlot);
 
-        if (player == null || !player.IsValid || player.IsBot || player.IsHLTV || player.AuthorizedSteamID == null|| player.IpAddress == null)return;
+        if (player == null || !player.IsValid || player.IsBot || player.IsHLTV)return;
 
         var JoinPlayer = player.PlayerName;
-        var steamId2 = player.AuthorizedSteamID.SteamId2;
-        var steamId3 = player.AuthorizedSteamID.SteamId3;
-        var steamId32 = player.AuthorizedSteamID.SteamId32;
-        var steamId64 = player.AuthorizedSteamID.SteamId64;
+        var steamId2 = (player.AuthorizedSteamID != null) ? player.AuthorizedSteamID.SteamId2 : "InvalidSteamID";
+        var steamId3 = (player.AuthorizedSteamID != null) ? player.AuthorizedSteamID.SteamId3 : "InvalidSteamID";
+        var steamId32 = (player.AuthorizedSteamID != null) ? player.AuthorizedSteamID.SteamId32.ToString() : "InvalidSteamID";
+        var steamId64 = (player.AuthorizedSteamID != null) ? player.AuthorizedSteamID.SteamId64.ToString() : "InvalidSteamID";
         var GetIpAddress = NativeAPI.GetPlayerIpAddress(playerSlot);
-        var ipAddress = GetIpAddress.Split(':')[0];
+        var ipAddress = GetIpAddress?.Split(':')[0] ?? "InValidIpAddress";
         var Country = GetCountry(ipAddress);
         var SCountry = GetCountryS(ipAddress);
         var City = GetCity(ipAddress);
@@ -278,8 +278,11 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
         {
             foreach(var players in GetPlayerControllers().FindAll(x => x.Connected == PlayerConnectedState.PlayerConnected && !x.IsBot))
             {
-                if (!player.IsValid) continue;
-                players.ExecuteClientCommand("play " + Config.InGameSoundDisconnect);
+                if (players.IsValid)
+                {
+                    players.ExecuteClientCommand("play " + Config.InGameSoundDisconnect);
+                }
+                
             }
         }
     }
