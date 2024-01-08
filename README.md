@@ -1,4 +1,4 @@
-# [CS2] Connect-Disconnect-Sound (1.0.5)
+# [CS2] Connect-Disconnect-Sound (1.0.6)
 
 ### Connect , Disconnect , Country , City , Message , Sound , Logs , Discord
 
@@ -100,6 +100,9 @@
 
 ## .:[ Change Log ]:.
 ```
+(1.0.6)
+-Fix Some Bugs
+
 (1.0.5)
 -Added "AutoDeleteLogsMoreThanXdaysOld"
 -Added "SendLogToWebHook" Mode 1/2/3
