@@ -1,0 +1,7 @@
+{
+	"InGame_Message_Connect": "{green}Gold KingZ {grey}| {purple}{2} {lime}Connected [{9} - {10}]",
+	"InGame_Message_Disconnect": "{green}Gold KingZ {grey}| {purple}{2} {red}Disconnected [{11}]",
+
+	"InGame_Command_Enabled": "{green}Gold KingZ {grey}| Connect/Disconnect Sounds Has Been {lime}Enabled",
+	"InGame_Command_Disabled": "{green}Gold KingZ {grey}| Connect/Disconnect Sounds Has Been {darkred}Disabled"
+}
