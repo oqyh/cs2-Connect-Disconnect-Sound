@@ -43,7 +43,7 @@
   
   //-----------------------------------------------------------------------------------------
   
-  //Add Mnay Commands You Like And To Disable Any Make It Empty Like This ""
+  //Add Many Commands You Like And To Disable Any Make It Empty Like This ""
   "InGameSoundDisableCommands": "!stopsound,!stopsounds",
   // you can test any sound path ingame console type "play <soundpath>"
   // Sound Path will in https://github.com/oqyh/cs2-Connect-Disconnect-Sound/blob/main/sounds/sounds.txt
