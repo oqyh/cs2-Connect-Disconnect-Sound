@@ -1,4 +1,4 @@
-# [CS2] Connect-Disconnect-Sound (1.0.7)
+# [CS2] Connect-Disconnect-Sound (1.0.8)
 
 ### Connect , Disconnect , Country , City , Message , Sound , Logs , Discord
 
@@ -45,6 +45,8 @@
   
   //Add Many Commands You Like And To Disable Any Make It Empty Like This ""
   "InGameSoundDisableCommands": "!stopsound,!stopsounds",
+  //Delete Inactive Players Older Than X Days (Save Cookies in ../addons/counterstrikesharp/plugins/CnD_Sound/Cookies/)
+  "RemovePlayerCookieOlderThanXDays": 7,
   // you can test any sound path ingame console type "play <soundpath>"
   // Sound Path will in https://github.com/oqyh/cs2-Connect-Disconnect-Sound/blob/main/sounds/sounds.txt
   //To Disable Any Make It Empty Like This ""
@@ -132,6 +134,11 @@
 
 ## .:[ Change Log ]:.
 ```
+(1.0.8)
+-Fix Some Bugs
+-Fix InGameSoundDisableCommands
+-Added "RemovePlayerCookieOlderThanXDays" (Save Cookies in ../addons/counterstrikesharp/plugins/CnD_Sound/Cookies/)
+
 (1.0.7)
 -Fix Some Bugs
 -Fix AutoDeleteLogsMoreThanXdaysOld
