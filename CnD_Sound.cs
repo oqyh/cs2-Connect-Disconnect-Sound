@@ -53,7 +53,6 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
     private static readonly HttpClient httpClient = new HttpClient();
     public CnDSoundConfig Config { get; set; } = new CnDSoundConfig();
     public ENetworkDisconnectionReason Reason { get; set; }
-    private Dictionary<int, bool> OnDisabled = new Dictionary<int, bool>();
     public void OnConfigParsed(CnDSoundConfig config)
     {
         Config = config;
@@ -741,9 +740,5 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
         public int Id { get; set; }
         public bool BoolValue { get; set; }
         public DateTime Date { get; set; }
-    }
-    public override void Unload(bool hotReload)
-    {
-        OnDisabled.Clear();
     }
 }
