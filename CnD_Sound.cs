@@ -7,15 +7,16 @@ using System.Text;
 using System.Drawing;
 using Microsoft.Extensions.Localization;
 using CounterStrikeSharp.API.Modules.Commands;
+using Newtonsoft.Json;
 
 namespace CnD_Sound;
 
 public class CnDSoundConfig : BasePluginConfig
 {
     [JsonPropertyName("InGameSoundDisableCommands")] public string InGameSoundDisableCommands { get; set; } = "!stopsound,!stopsounds";
+    [JsonPropertyName("RemovePlayerCookieOlderThanXDays")] public int RemovePlayerCookieOlderThanXDays { get; set; } = 7;
     [JsonPropertyName("InGameSoundConnect")] public string InGameSoundConnect { get; set; } = "sounds/buttons/blip1.vsnd_c";
     [JsonPropertyName("InGameSoundDisconnect")] public string InGameSoundDisconnect { get; set; } = "sounds/player/taunt_clap_01.vsnd_c";
-
 
 
     [JsonPropertyName("SendLogToText")] public bool SendLogToText { get; set; } = false;
@@ -44,7 +45,7 @@ public class CnDSoundConfig : BasePluginConfig
 public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
 {
     public override string ModuleName => "Connect Disconnect Sound";
-    public override string ModuleVersion => "1.0.7";
+    public override string ModuleVersion => "1.0.8";
     public override string ModuleAuthor => "Gold KingZ";
     public override string ModuleDescription => "Connect , Disconnect , Country , City , Message , Sound , Logs , Discord";
     internal static IStringLocalizer? Stringlocalizer;
@@ -86,7 +87,8 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
     private HookResult OnPlayerSayPublic(CCSPlayerController? player, CommandInfo info)
 	{
         if (string.IsNullOrEmpty(Config.InGameSoundDisableCommands) || player == null || !player.IsValid || player.IsBot || player.IsHLTV)return HookResult.Continue;
-
+        var playerid = player.SteamID;
+        bool playerValue = RetrieveBoolValueById((int)playerid);
         var message = info.GetArg(1);
         if (string.IsNullOrWhiteSpace(message)) return HookResult.Continue;
         string trimmedMessage1 = message.TrimStart();
@@ -96,25 +98,28 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
         
         if (disableCommands.Any(cmd => cmd.Equals(trimmedMessage, StringComparison.OrdinalIgnoreCase)))
         {
-            if (player.UserId.HasValue)
+            DateTime personDate = DateTime.Now;
+            
+
+            playerValue = !playerValue;
+
+            if (playerValue)
             {
-                if (OnDisabled.ContainsKey(player.UserId.Value))
-                {
-                    OnDisabled.Remove(player.UserId.Value);
-                    player.PrintToChat(Localizer["InGame_Command_Enabled"]);
-                }else
-                {
-                    OnDisabled.Add(player.UserId.Value, true);
-                    player.PrintToChat(Localizer["InGame_Command_Disabled"]);
-                }
+                player.PrintToChat(Localizer["InGame_Command_Disabled"]);
+            }else
+            {
+                player.PrintToChat(Localizer["InGame_Command_Enabled"]);
             }
+
+            SaveToJsonFile((int)playerid, playerValue, personDate);
         }
         return HookResult.Continue;
     }
     private HookResult OnPlayerSayTeam(CCSPlayerController? player, CommandInfo info)
 	{
         if (string.IsNullOrEmpty(Config.InGameSoundDisableCommands) || player == null || !player.IsValid || player.IsBot || player.IsHLTV)return HookResult.Continue;
-
+        var playerid = player.SteamID;
+        bool playerValue = RetrieveBoolValueById((int)playerid);
         var message = info.GetArg(1);
         if (string.IsNullOrWhiteSpace(message)) return HookResult.Continue;
         string trimmedMessage1 = message.TrimStart();
@@ -124,18 +129,20 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
         
         if (disableCommands.Any(cmd => cmd.Equals(trimmedMessage, StringComparison.OrdinalIgnoreCase)))
         {
-            if (player.UserId.HasValue)
+            DateTime personDate = DateTime.Now;
+            
+
+            playerValue = !playerValue;
+
+            if (playerValue)
             {
-                if (OnDisabled.ContainsKey(player.UserId.Value))
-                {
-                    OnDisabled.Remove(player.UserId.Value);
-                    player.PrintToChat(Localizer["InGame_Command_Enabled"]);
-                }else
-                {
-                    OnDisabled.Add(player.UserId.Value, true);
-                    player.PrintToChat(Localizer["InGame_Command_Disabled"]);
-                }
+                player.PrintToChat(Localizer["InGame_Command_Disabled"]);
+            }else
+            {
+                player.PrintToChat(Localizer["InGame_Command_Enabled"]);
             }
+
+            SaveToJsonFile((int)playerid, playerValue, personDate);
         }
         return HookResult.Continue;
     }
@@ -235,21 +242,22 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
             }
         }
         
-        
         if (!string.IsNullOrEmpty(Config.InGameSoundConnect))
         {
             foreach(var players in GetPlayerControllers().FindAll(x => x.Connected == PlayerConnectedState.PlayerConnected && !x.IsBot))
             {
                 if (players.IsValid)
                 {
+                    var playerid = players.SteamID;
+                    bool playerValue = RetrieveBoolValueById((int)playerid);
                     if (!string.IsNullOrEmpty(Config.InGameSoundDisableCommands))
                     {
-                        if (player.UserId.HasValue)
+                        if (playerValue)
                         {
-                            if(OnDisabled.ContainsKey(player.UserId.Value) == false)
-                            {
-                                players.ExecuteClientCommand("play " + Config.InGameSoundConnect);
-                            }
+                            //skip sounds
+                        }else
+                        {
+                            players.ExecuteClientCommand("play " + Config.InGameSoundConnect); 
                         }
                     }else
                     {
@@ -370,14 +378,16 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
             {
                 if (players.IsValid)
                 {
+                    var playerid = players.SteamID;
+                    bool playerValue = RetrieveBoolValueById((int)playerid);
                     if (!string.IsNullOrEmpty(Config.InGameSoundDisableCommands))
                     {
-                        if (player.UserId.HasValue)
+                        if (playerValue)
                         {
-                            if(OnDisabled.ContainsKey(player.UserId.Value) == false)
-                            {
-                                players.ExecuteClientCommand("play " + Config.InGameSoundDisconnect);
-                            }
+                            //skip sounds
+                        }else
+                        {
+                            players.ExecuteClientCommand("play " + Config.InGameSoundDisconnect); 
                         }
                     }else
                     {
@@ -639,6 +649,98 @@ public class CnDSound : BasePlugin, IPluginConfig<CnDSoundConfig>
         {
             Console.WriteLine($"Error: {ex.Message}");
         }
+    }
+    private void SaveToJsonFile(int id, bool boolValue, DateTime date)
+    {
+        string Fpath = Path.Combine(ModuleDirectory,"../../plugins/CnD_Sound/Cookies/");
+        string Fpathc = Path.Combine(ModuleDirectory,"../../plugins/CnD_Sound/Cookies/CnD_Sound_Cookies.json");
+        try
+        {
+            if(!Directory.Exists(Fpath))
+            {
+                Directory.CreateDirectory(Fpath);
+            }
+
+            if (!File.Exists(Fpathc))
+            {
+                File.WriteAllText(Fpathc, "[]");
+            }
+
+            List<PersonData> allPersonsData;
+            string jsonData = File.ReadAllText(Fpathc);
+            allPersonsData = JsonConvert.DeserializeObject<List<PersonData>>(jsonData) ?? new List<PersonData>();
+
+            PersonData existingPerson = allPersonsData.Find(p => p.Id == id)!;
+
+            if (existingPerson != null)
+            {
+                existingPerson.BoolValue = boolValue;
+                existingPerson.Date = date;
+            }
+            else
+            {
+                PersonData newPerson = new PersonData { Id = id, BoolValue = boolValue, Date = date };
+                allPersonsData.Add(newPerson);
+            }
+            allPersonsData.RemoveAll(p => (DateTime.Now - p.Date).TotalDays > Config.RemovePlayerCookieOlderThanXDays);
+
+            string updatedJsonData = JsonConvert.SerializeObject(allPersonsData, Formatting.Indented);
+            try
+            {
+                File.WriteAllText(Fpathc, updatedJsonData);
+            }catch
+            {
+            }
+        }catch
+        {
+        }
+    }
+    
+    private bool RetrieveBoolValueById(int targetId)
+    {
+        string Fpath = Path.Combine(ModuleDirectory,"../../plugins/CnD_Sound/Cookies/");
+        string Fpathc = Path.Combine(ModuleDirectory,"../../plugins/CnD_Sound/Cookies/CnD_Sound_Cookies.json");
+        try
+        {
+            if (File.Exists(Fpathc))
+            {
+                string jsonData = File.ReadAllText(Fpathc);
+                List<PersonData> allPersonsData = JsonConvert.DeserializeObject<List<PersonData>>(jsonData) ?? new List<PersonData>();
+
+                PersonData targetPerson = allPersonsData.Find(p => p.Id == targetId)!;
+
+                if (targetPerson != null)
+                {
+                    if (DateTime.Now - targetPerson.Date <= TimeSpan.FromDays(Config.RemovePlayerCookieOlderThanXDays))
+                    {
+                        return targetPerson.BoolValue;
+                    }
+                    else
+                    {
+                        allPersonsData.Remove(targetPerson);
+                        string updatedJsonData = JsonConvert.SerializeObject(allPersonsData, Formatting.Indented);
+                        try
+                        {
+                        File.WriteAllText(Fpathc, updatedJsonData);
+                        }catch
+                        {
+                        }
+                    }
+                }
+            }
+            return false;
+        }catch
+        {
+            return false;
+        }
+    }
+
+
+    private class PersonData
+    {
+        public int Id { get; set; }
+        public bool BoolValue { get; set; }
+        public DateTime Date { get; set; }
     }
     public override void Unload(bool hotReload)
     {
