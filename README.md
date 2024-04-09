@@ -23,6 +23,11 @@
 
 
 ## .:[ Configuration ]:.
+
+> [!CAUTION]
+> Config Located In ..\addons\counterstrikesharp\plugins\CnD_Sound\config\config.json                                           
+>
+
 ```json
 {
   //Disable Looping Connections To Anti Spam Chat
