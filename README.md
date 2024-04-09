@@ -1,4 +1,4 @@
-# [CS2] Connect-Disconnect-Sound (1.0.8)
+# [CS2] Connect-Disconnect-Sound (1.0.9)
 
 ### Connect , Disconnect , Country , City , Message , Sound , Logs , Discord
 
@@ -25,74 +25,71 @@
 ## .:[ Configuration ]:.
 ```json
 {
-  // you can use these in Connect or Disconnect Message
-  //{TIME} == Time Formate "LogInsideFileTimeFormat"
-  //{DATE} == Date Formate "LogFileDateFormat"
-  //{PLAYERNAME} == Player Who Joined
-  //{LONGCOUNTRY} == ex: United Arab Emirates
-  //{SHORTCOUNTRY} == ex: AE
-  //{CITY} == ex: Abu Dhabi
-  //{STEAMID} = STEAM_0:1:122910632
-  //{STEAMID3} = U:1:245821265
-  //{STEAMID32} = 245821265
-  //{STEAMID64} = 76561198206086993
-  //{IP} = 127.0.0.0
-  //{REASON} = Disconnect Reason
-  //Colors Available = {default} {white} {darkred} {green} {lightyellow} {lightblue} {olive} {lime} {red} {lightpurple}
-                      //{purple} {grey} {yellow} {gold} {silver} {blue} {darkblue} {bluegrey} {magenta} {lightred} {orange}
+  //Disable Looping Connections To Anti Spam Chat
+  "DisableLoopConnections": true,
   
-  //-----------------------------------------------------------------------------------------
+  //Remove Default Disconnect Message 
+  "RemoveDefaultDisconnect": true,
   
-  //Add Many Commands You Like And To Disable Any Make It Empty Like This ""
+  //Sound Path Of Connect Players To Disable Make it ""
+  "InGameSoundConnect": "sounds/buttons/blip1.vsnd_c",
+  //Sound Path Of Disconnect Players To Disable Make it ""
+  "InGameSoundDisconnect": "sounds/player/taunt_clap_01.vsnd_c",
+  //Allow These Group Only To Toggle On/Off Sounds "" Means Anyone
+  "InGameAllowDisableCommandsOnlyForGroups": "",
+  //Command Toggle On/Off To Disable This Make it ""
   "InGameSoundDisableCommands": "!stopsound,!stopsounds",
+  
   //Delete Inactive Players Older Than X Days (Save Cookies in ../addons/counterstrikesharp/plugins/CnD_Sound/Cookies/)
   "RemovePlayerCookieOlderThanXDays": 7,
-  // you can test any sound path ingame console type "play <soundpath>"
-  // Sound Path will in https://github.com/oqyh/cs2-Connect-Disconnect-Sound/blob/main/sounds/sounds.txt
-  //To Disable Any Make It Empty Like This ""
-  "InGameSoundConnect": "sounds/buttons/blip1.vsnd_c",
-  "InGameSoundDisconnect": "sounds/player/taunt_clap_01.vsnd_c",
   
-  //-----------------------------------------------------------------------------------------
+  
+  //==========================
+  // Message Connect/Disconnect
+  //==========================
+  //  {DATE} = Date
+  //  {TIME} = Time
+  //  {PLAYERNAME} = PlayerName
+  //  {STEAMID} = SteamID [ex: STEAM_0:1:122910632]
+  //  {STEAMID3} = SteamID3 [ex: U:1:245821265]
+  //  {STEAMID32} = SteamID32 [ex: 245821265]
+  //  {STEAMID64} = SteamID64 [ex: 76561198206086993]
+  //  {IP} = IpAddress
+  //  {LONGCOUNTRY} = LongCountry [ex: United Arab Emirates]
+  //  {SHORTCOUNTRY} = ShortCountry [ex: AE]
+  //  {CITY} = City [ex: Abu Dhabi]
+  //  {REASON} = Disconnect Reason 
+  //==========================
   
   // If Its Enabled Logs Will Located in ../addons/counterstrikesharp/plugins/CnD_Sound/logs/
   "SendLogToText": false,
-  // Log File Format .txt or .pdf ect...
-  "LogFileFormat": ".txt",
-  // Date and Time Formate
-  "LogFileDateFormat": "MM-dd-yyyy",
-  "LogInsideFileTimeFormat": "HH:mm:ss",
-  //To Disable Any Make It Empty Like This ""
-  "LogTextFormatConnect": "[{DATE} - {TIME}] {PLAYERNAME} Connected [{SHORTCOUNTRY} - {CITY}] [{STEAMID} - {IP}]",
-  "LogTextFormatDisconnect": "[{DATE} - {TIME}] {PLAYERNAME} Disconnected [{SHORTCOUNTRY} - {CITY}] [{STEAMID64}] [{STEAMID} - {IP}] [{REASON}]",
-  //Auto Delete Logs If More Than X (Days) Old
-  "AutoDeleteLogsMoreThanXdaysOld": 0,
   
-  //-----------------------------------------------------------------------------------------
+  //How Message Look Like To Disable Make it ""
+  "Log_TextConnectMessageFormat": "[{DATE} - {TIME}] {PLAYERNAME} Connected [{SHORTCOUNTRY} - {CITY}] [{STEAMID} - {IP}]",
+  "Log_TextDisconnectMessageFormat": "[{DATE} - {TIME}] {PLAYERNAME} Disconnected [{SHORTCOUNTRY} - {CITY}] [{STEAMID64}] [{STEAMID} - {IP}] [{REASON}]",
+  
+  //Auto Delete Logs If More Than X (Days) Old
+  "Log_AutoDeleteLogsMoreThanXdaysOld": 7,
   
   //Send Log To Discord Via WebHookURL
   //SendLogToWebHook (0) = Disable
   //SendLogToWebHook (1) = Text Only
   //SendLogToWebHook (2) = Text With + Name + Hyperlink To Steam Profile
   //SendLogToWebHook (3) = Text With + Name + Hyperlink To Steam Profile + Profile Picture
-  "SendLogToWebHook": 0,
+  "Log_SendLogToDiscordOnMode": 0,
+  
   //If SendLogToWebHook (2) or SendLogToWebHook (3) How Would You Side Color Message To Be Check (https://www.color-hex.com/) For Colors
-  "SideColorMessage": "00FFFF",
+  "Log_DiscordSideColor": "00FFFF",
+  
   //Discord WebHook
-  "WebHookURL": "https://discord.com/api/webhooks/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  //To Disable Any Make It Empty Like This ""
-  "LogDiscordChatFormatConnect": "{PLAYERNAME} Connected [{SHORTCOUNTRY} - {CITY}]",
-  "LogDiscordChatFormatDisconnect": "{PLAYERNAME} Disconnected [{SHORTCOUNTRY} - {CITY}] [{REASON}]",
+  "Log_DiscordWebHookURL": "https://discord.com/api/webhooks/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   
-  //-----------------------------------------------------------------------------------------
+  //How Message Look Like To Disable Make it ""
+  "Log_DiscordConnectMessageFormat": "{PLAYERNAME} Connected [{LONGCOUNTRY} - {CITY}]",
+  "Log_DiscordDisconnectMessageFormat": "{PLAYERNAME} Disconnected [{LONGCOUNTRY} - {CITY}] [{REASON}]",
   
-  "SendLogToServerConsole": false,
-  //To Disable Any Make It Empty Like This ""
-  "LogServerConsoleFormatConnect": "Gold KingZ | {PLAYERNAME} Connected [{SHORTCOUNTRY} - {CITY}]",
-  "LogServerConsoleFormatDisconnect": "Gold KingZ | {PLAYERNAME} Disconnected [{SHORTCOUNTRY} - {CITY}] [{REASON}]",
-  
-  //-----------------------------------------------------------------------------------------
-  "ConfigVersion": 1
+  //If Log_SendLogToDiscordOnMode (3) And Player Doesn't Have Profile Picture Which Picture Do You Like To Be Replaced
+  "Log_DiscordUsersWithNoAvatarImage": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/b5/b5bd56c1aa4644a474a2e4972be27ef9e82e517e_full.jpg",
 }
 ```
 
@@ -109,31 +106,61 @@
 	//{LightBlue} {Olive} {Lime} {Red} {Purple} {Grey}
 	//{Default} {White} {Darkred} {Green} {LightYellow}
 	//==========================
-	// Message_Connect/Disconnect
+	//        Other
 	//==========================
-	//Date = {0}
-	//Time = {1}
-	//PlayerName = {2}
-	//SteamID [ex: STEAM_0:1:122910632] = {3}
-	//SteamID3 [ex: U:1:245821265] = {4}
-	//SteamID32 [ex: 245821265] = {5}
-	//SteamID64 [ex: 76561198206086993] = {6}
-	//IpAddress = {7}
-	//LongCountry [ex: United Arab Emirates] = {8}
-	//ShortCountry [ex: AE] = {9}
-	//City [ex: Abu Dhabi] = {10}
-	//Disconnect Reason = {11}
+	//{nextline} = Print On Next Line
 	//==========================
-	"InGame_Message_Connect": "{green}Gold KingZ {grey}| {purple}{2} {lime}Connected [{9} - {10}]",
-	"InGame_Message_Disconnect": "{green}Gold KingZ {grey}| {purple}{2} {red}Disconnected [{11}]",
+	// Message Connect/Disconnect
+	//==========================
+	//  {0} = Date
+	//  {1} = Time
+	//  {2} = PlayerName
+	//  {3} = SteamID [ex: STEAM_0:1:122910632]
+	//  {4} = SteamID3 [ex: U:1:245821265]
+	//  {5} = SteamID32 [ex: 245821265]
+	//  {6} = SteamID64 [ex: 76561198206086993]
+	//  {7} = IpAddress
+	//  {8} = LongCountry [ex: United Arab Emirates]
+	//  {9} = ShortCountry [ex: AE]
+	//  {10} = City [ex: Abu Dhabi]
+	//  {11} = Disconnect Reason 
+	//==========================
+	
+	"chat.message.connect": "{green}Gold KingZ {grey}| {purple}{2} {lime}Connected [{9} - {10}]",
+	"chat.message.disconnect": "{green}Gold KingZ {grey}| {purple}{2} {red}Disconnected [{11}]",
 
-	"InGame_Command_Enabled": "{green}Gold KingZ {grey}| Connect/Disconnect Sounds Has Been {lime}Enabled",
-	"InGame_Command_Disabled": "{green}Gold KingZ {grey}| Connect/Disconnect Sounds Has Been {darkred}Disabled"
+	"console.message.connect": "Gold KingZ | {2} Connected [{9} - {10}]",
+	"console.message.disconnect": "Gold KingZ | {2} Disconnected [{9} - {10}] [{11}]",
+
+	"command.not.allowed": "{green}Gold KingZ {grey}| {darkred}Toggle Connect/Disconnect Sounds For Vips",
+	"command.sound.enabled": "{green}Gold KingZ {grey}| Connect/Disconnect Sounds Has Been {lime}Enabled",
+	"command.sound.disabled": "{green}Gold KingZ {grey}| Connect/Disconnect Sounds Has Been {darkred}Disabled",
+
+	"invalid.steamid": "InvalidSteamID",
+	"invalid.ipadress": "InValidIpAddress",
+	"unknown.short.country": "U/C",
+	"unknown.long.country": "Unknown Country",
+	"unknown.city": "Unknown City"
 }
 ```
 
 ## .:[ Change Log ]:.
 ```
+(1.0.9)
+-Fix Some Bugs
+-Added DisableLoopConnections
+-Added RemoveDefaultDisconnect
+-Added InGameAllowDisableCommandsOnlyForGroups
+-Added Log_DiscordUsersWithNoAvatarImage
+-Added Lang console.message.connect
+-Added Lang console.message.disconnect
+-Added Lang command.not.allowed
+-Added Lang invalid.steamid
+-Added Lang invalid.ipadress
+-Added Lang unknown.short.country
+-Added Lang unknown.long.country
+-Added Lang unknown.city
+
 (1.0.8)
 -Fix Some Bugs
 -Fix InGameSoundDisableCommands
