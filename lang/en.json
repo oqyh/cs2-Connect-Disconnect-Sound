@@ -1,7 +1,17 @@
 {
-	"InGame_Message_Connect": "{green}Gold KingZ {grey}| {purple}{2} {lime}Connected [{9} - {10}]",
-	"InGame_Message_Disconnect": "{green}Gold KingZ {grey}| {purple}{2} {red}Disconnected [{11}]",
+	"chat.message.connect": "{green}Gold KingZ {grey}| {purple}{2} {lime}Connected [{9} - {10}]",
+	"chat.message.disconnect": "{green}Gold KingZ {grey}| {purple}{2} {red}Disconnected [{11}]",
 
-	"InGame_Command_Enabled": "{green}Gold KingZ {grey}| Connect/Disconnect Sounds Has Been {lime}Enabled",
-	"InGame_Command_Disabled": "{green}Gold KingZ {grey}| Connect/Disconnect Sounds Has Been {darkred}Disabled"
+	"console.message.connect": "Gold KingZ | {2} Connected [{9} - {10}]",
+	"console.message.disconnect": "Gold KingZ | {2} Disconnected [{9} - {10}] [{11}]",
+
+	"command.not.allowed": "{green}Gold KingZ {grey}| {darkred}Toggle Connect/Disconnect Sounds For Vips",
+	"command.sound.enabled": "{green}Gold KingZ {grey}| Connect/Disconnect Sounds Has Been {lime}Enabled",
+	"command.sound.disabled": "{green}Gold KingZ {grey}| Connect/Disconnect Sounds Has Been {darkred}Disabled",
+
+	"invalid.steamid": "InvalidSteamID",
+	"invalid.ipadress": "InValidIpAddress",
+	"unknown.short.country": "U/C",
+	"unknown.long.country": "Unknown Country",
+	"unknown.city": "Unknown City"
 }
